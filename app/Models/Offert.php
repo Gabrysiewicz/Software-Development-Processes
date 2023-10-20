@@ -23,7 +23,17 @@ class Offert extends Model
         'youtube', 'facebook', 'instagrem', 'tiktok', 'twitter', 
         'description'
     ];
+    public function scopeFilter($query, array $filters){
+        // ddd($filters);
+        if($filters['profession'] ?? false){ // not false
+            $query->where('profession', 'like', '%'. request('profession') . '%');
+        }
 
+        if($filters['search'] ?? false){ // not false
+            $query->where('voivodeship', 'like', '%'. request('search') . '%')
+                  ->orWhere('city', 'like', '%'. request('search') . '%');
+        }
+    }
     public function user(){
         return $this->belongsTo(User::class, "user_id");
     }}

@@ -1,4 +1,6 @@
-<x-layout>    
+<x-layout>
+    @include('partials/_search')
+    
     @unless (count($offerts) == 0)
         @foreach ($offerts as $offert)
         <div class='offert'>
