@@ -17,10 +17,11 @@ use App\Http\Controllers\OffertController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/register', function(){
-    return view('users.register');
-});
-Route::get('/login', function(){
-    return view('users.login');
-});
+Route::get('/register', [UserController::class, 'create'])->middleware('guest');
+Route::post('/users', [UserController::class, 'store']);
+
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 

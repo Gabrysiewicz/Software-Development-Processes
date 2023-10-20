@@ -13,7 +13,7 @@
     </head>
     <body>
         <nav>
-            <a href='/'> <img src='{{ asset('images/no-image.jpg') }}' width='75px' height='75px' alt='logo'> </a>
+            <a href='/'> <img src='{{ asset('images/logo.jpeg') }}' width='75px' height='75px' alt='logo'> </a>
             <ul>
                 <li><a href='/?profession=barber'>Barber</a></li>
                 <li><a href='/?profession=hairdresser'>Hairdresser</a></li>
