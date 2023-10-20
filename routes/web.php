@@ -17,6 +17,20 @@ use App\Http\Controllers\OffertController;
 Route::get('/', function () {
     return view('welcome');
 });
+// Add Offerts / Manage
+Route::get('/offerts/create', [OffertController::class, 'create'])->middleware('auth');
+Route::post('/offerts', [OffertController::class, 'store'])->middleware('auth');
+
+Route::get('/offerts/{offert}/edit', [OffertController::class, 'edit'])->middleware('auth');
+Route::put('/offerts/{offert}', [OffertController::class, 'update'])->middleware('auth');
+
+Route::get('/offerts/manage', [OffertController::class, 'manage'])->middleware('auth');
+
+Route::delete('/offerts/{offert}', [OffertController::class, 'delete'])->middleware('auth');
+Route::get('/offerts/{offert}', [OffertController::class, 'show']);
+
+
+// Sign up / Sign in / Sign Out
 Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 Route::post('/users', [UserController::class, 'store']);
 
