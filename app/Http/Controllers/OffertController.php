@@ -12,8 +12,8 @@ class OffertController extends Controller
     // Get & Show all 
     public function index(){
         return view('offerts.index', [
-            // 'offerts' => Offert::all()
-            'offerts' => Offert::latest()->filter(request(['profession', 'search']))->get()
+            'offerts' => Offert::all()
+            // 'offerts' => Offert::latest()->filter(request(['profession', 'search']))->get()
             // 'offerts' => Offert::latest()->filter(request(['profession', 'search']))->paginate(6)
         ]);
     }

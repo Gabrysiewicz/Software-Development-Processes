@@ -14,9 +14,12 @@ use App\Http\Controllers\OffertController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+// index
+Route::get('/', [OffertController::class, 'index']);
+
 // Add Offerts / Manage
 Route::get('/offerts/create', [OffertController::class, 'create'])->middleware('auth');
 Route::post('/offerts', [OffertController::class, 'store'])->middleware('auth');
