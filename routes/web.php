@@ -32,7 +32,6 @@ Route::get('/offerts/manage', [OffertController::class, 'manage'])->middleware('
 Route::delete('/offerts/{offert}', [OffertController::class, 'delete'])->middleware('auth');
 Route::get('/offerts/{offert}', [OffertController::class, 'show']);
 
-
 // Sign up / Sign in / Sign Out
 Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 Route::post('/users', [UserController::class, 'store']);
