@@ -74,6 +74,85 @@ Wymagania niefunkcjonalne
 
 # Testy automatyczne
 
+Testy w Laravelu są tworzone za pomocą `sail` lub `php`:
+Docker
 ```
-TODO
+sail artisan make:test MyTest
 ```
+
+Local
+```
+php artisan make:test MyTest
+```
+
+Laravel domyślnie tworzy testy w `/tests/Feature` a testy jednostkowe w `/tests/Unit`.
+Framework jednak stawia na testy poświęcone `Feature'om`.
+W mojej aplikacji testy sprawdzają:
+ - CRUD
+   - AuthTest.php
+ - Routing
+   - AuthTest.php
+   - GuestTest.php
+ - Database
+   - AuthTest.php
+ - Validation
+   - ValidationCreateTest.php
+   - ValidationEditTest.php
+ - Authorization
+   - AuthTest.php
+   - GuestTest.php
+ - Authentication
+   - AuthTest.php
+   - GuestTest.php
+
+Aby wykonać testy należy wydać polecenie
+```
+➜  my-app git:(main) ✗ sail artisan test
+   PASS  Tests\Unit\ExampleTest
+  ✓ that true is true
+
+   PASS  Tests\Feature\AuthTest
+  ✓ authenticated user can create offert                                 0.84s
+  ✓ unauthenticated user can create offert                               0.01s
+  ✓ authenticated user can store offert                                  0.03s
+  ✓ unauthenticated user can store offert                                0.01s
+  ✓ authenticated user can edit offert                                   0.02s
+  ✓ unauthenticated user can edit offert                                 0.01s
+  ✓ authenticated user can update offert                                 0.01s
+  ✓ unauthenticated user can update offert                               0.01s
+  ✓ authenticated user can access menage                                 0.01s
+  ✓ unauthenticated user can access menage                               0.01s
+  ✓ authenticated user can delete offert                                 0.01s
+  ✓ unauthenticated user can delete offert                               0.01s
+  ✓ authenticated user can logout                                        0.01s
+  ✓ unauthenticated user can logout                                      0.01s
+
+   PASS  Tests\Feature\ExampleTest
+  ✓ the application returns a successful response                        0.02s
+
+   PASS  Tests\Feature\GuestTest
+  ✓ guest user can access register                                       0.01s
+  ✓ authenticated user can access register                               0.01s
+  ✓ guest user can access login                                          0.01s
+  ✓ authenticated user can access login                                  0.01s
+
+   PASS  Tests\Feature\ValidationCreateTest
+  ✓ authenticated user cannot create offert without name                 0.02s
+  ✓ authenticated user cannot create offert without surname              0.02s
+  ✓ authenticated user cannot create offert without voivodeship          0.01s
+  ✓ authenticated user cannot create offert without city                 0.01s
+  ✓ authenticated user cannot create offert without profession           0.02s
+  ✓ authenticated user cannot create offert without workplace            0.01s
+
+   PASS  Tests\Feature\ValidationEditTest
+  ✓ authenticated user cannot edit offert without name                   0.03s
+  ✓ authenticated user cannot edit offert without surname                0.02s
+  ✓ authenticated user cannot edit offert without voivodeship            0.02s
+  ✓ authenticated user cannot edit offert without city                   0.02s
+  ✓ authenticated user cannot edit offert without profession             0.02s
+  ✓ authenticated user cannot edit offert without workplace              0.02s
+
+  Tests:    32 passed (59 assertions)
+  Duration: 1.34s
+```
+
