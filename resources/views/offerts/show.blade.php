@@ -8,6 +8,7 @@
         </div>
         <div id='intro'>
             <img src='{{$offert['profile-picture'] ? asset('storage/'. $offert['profile-picture']) : asset('images/no-image.jpg') }}' alt='pfp' id='profile-picture' width='150px' height='150px'>
+            
             <h1>{{$offert->name}} {{$offert->surname}}</h1>
             <div id='social-media'>
                 @if (isset($offert->youtube))
