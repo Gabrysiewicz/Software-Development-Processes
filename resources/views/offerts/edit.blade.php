@@ -18,16 +18,20 @@
                     <p>{{$message}}</p>
                 @enderror
             </div>
-            <div>
-                <label for='edit-voivodeship' >* voivodeship</label>
-                <input type='text' name='voivodeship' id='edit-voivodeship' placeholder="Lubelskie" value="{{$offert->voivodeship}}">
-                @error('voivodeship')
-                    <p>{{$message}}</p>
-                @enderror
-            </div>
-            <div>            
+            {{-- <div>            
                 <label for='edit-city' >* city </label>
                 <input type='text' name='city' id='edit-city' placeholder="Lublin" value="{{$offert->city}}">
+                @error('city')
+                    <p>{{$message}}</p>
+                @enderror
+            </div> --}}
+            <div>            
+                <label for='edit-city' >* city </label>
+                <select name="city_id" id="edit_city">
+                    @foreach ($cities as $city)
+                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                    @endforeach
+                </select>
                 @error('city')
                     <p>{{$message}}</p>
                 @enderror

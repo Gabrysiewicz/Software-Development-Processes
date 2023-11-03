@@ -1,0 +1,1 @@
+INSERT INTO offerts VALUES(null, 1, 'adam', 'mickiewicz', null, 'barber', 'salon', 1, 'Barber 404', null, null, null, null, null, null, Current_timestamp(), current_timestamp());

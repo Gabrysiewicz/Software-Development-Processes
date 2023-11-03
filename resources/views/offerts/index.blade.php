@@ -7,9 +7,8 @@
             <img src='{{$offert['profile-picture'] ? asset('storage/'. $offert['profile-picture']) : asset('images/no-image.jpg') }}' alt='pfp' width='150px' height='150px'>
             <ul class='offert-listing'>
                 <li class='text-120'><a href='/offerts/{{$offert->id}}' >{{$offert->name}} {{$offert->surname}}</a></li>
-                {{-- <li>{{$listing->surname}}</li> --}}
                 <li><a href='/?profession={{$offert->profession}}'>{{$offert->profession}}</a></li>
-                <li>{{$offert->voivodeship}}: {{$offert->city}}</li>
+                <li>{{$offert->city->voivodeship->name}}: {{$offert->city->name}}</li>
             </ul>
         </div>
         @endforeach

@@ -14,13 +14,13 @@ class Offert extends Model
         'user_id', 
         'name', 
         'surname', 
-        'voivodeship', 
-        'city', 
+        // 'voivodeship', 
+        'city_id', 
         'company', 
         'profession', 
         'workplace', 
         'profile-picture', 
-        'youtube', 'facebook', 'instagrem', 'tiktok', 'twitter', 
+        'youtube', 'facebook', 'instagram', 'tiktok', 'twitter', 
         'description'
     ];
     public function scopeFilter($query, array $filters){
@@ -36,4 +36,8 @@ class Offert extends Model
     }
     public function user(){
         return $this->belongsTo(User::class, "user_id");
-    }}
+    }
+    public function city(){
+        return $this->belongsTo(City::class, "city_id");
+    }
+}

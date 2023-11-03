@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use auth;
 use App\Models\Offert;
+use App\Models\City;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -25,19 +26,21 @@ class OffertController extends Controller
     }
     // Create new offert
     public function create(){
-        return view('offerts.create');
+        $cities = City::all(); // Retrieve all cities from the database
+        return view('offerts.create', ['cities' => $cities]);
     }
     // Store new offert
     public function store(Request $request){
         // dd($request->all());
         $formFields = $request->validate([
-            'name' => 'string|required|max:64',
-            'surname' => 'string|required|max:64',
-            'voivodeship' => 'string|required|max:64',
-            'city' => 'string|required|max:32',
-            'company' => 'string|nullable|max:64',
-            'profession' => 'string|required|max:64',
-            'workplace' => 'string|required|max:64',
+            'name' => 'string|required|max:17',
+            'surname' => 'string|required|max:11',
+            // 'voivodeship' => 'string|required|max:16',
+            // 'city_id' => 'string|required|max:16',
+            'city_id' => 'required|exists:cities,id',
+            'company' => 'string|nullable|max:32',
+            'profession' => 'string|required|max:29',
+            'workplace' => 'string|required|max:22',
             'profile-picture' => 'nullable',
             'youtube' => 'url|nullable|max:128',
             'facebook' => 'url|nullable|max:128',
@@ -86,20 +89,22 @@ class OffertController extends Controller
     }
     // Show edit form
     public function edit(Offert $offert){
-        return view('offerts.edit', ['offert' => $offert]);
+        $cities = City::all(); // Retrieve all cities from the database
+        return view('offerts.edit', ['offert' => $offert, 'cities' => $cities]);
     }
 
     // Update the offert
     public function update(Request $request, Offert $offert){
         // dd($request->all());
         $formFields = $request->validate([
-            'name' => 'string|required|max:64',
-            'surname' => 'string|required|max:64',
-            'voivodeship' => 'string|required|max:64',
-            'city' => 'string|required|max:32',
-            'company' => 'string|nullable|max:64',
-            'profession' => 'string|required|max:64',
-            'workplace' => 'string|required|max:64',
+            'name' => 'string|required|max:17',
+            'surname' => 'string|required|max:11',
+            // 'voivodeship' => 'string|required|max:16',
+            // 'city_id' => 'string|required|max:16',
+            'city_id' => 'required|exists:cities,id',
+            'company' => 'string|nullable|max:32',
+            'profession' => 'string|required|max:29',
+            'workplace' => 'string|required|max:22',
             'profile-picture' => 'nullable',
             'youtube' => 'url|nullable|max:128',
             'facebook' => 'url|nullable|max:128',

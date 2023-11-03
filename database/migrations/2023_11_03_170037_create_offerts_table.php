@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('profile-picture')->nullable();
             $table->string('profession');
             $table->string('workplace');
-            $table->string('voivodeship');
-            $table->string('city');
+            // $table->string('voivodeship');
+            $table->unsignedBigInteger('city_id');
             $table->string('company')->nullable();
             $table->string('youtube')->nullable();
             $table->string('facebook')->nullable();
@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('tiktok')->nullable();
             $table->string('twitter')->nullable();
             $table->longText('description')->nullable();
+
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
             $table->timestamps();
         });
     }
