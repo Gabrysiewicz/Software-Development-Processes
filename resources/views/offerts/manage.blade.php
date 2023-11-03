@@ -9,7 +9,14 @@
                     @foreach ( $offerts as $offert)
                     <tr><td>{{$offert->name}}</td>
                         <td>{{$offert->surname}}</td>
-                        <td>{{$offert->profession}}</td>
+                        <td>
+                        @foreach ($offert->professions as $profession)
+                            {{$profession->name}}
+                            @if (!$loop->last)
+                                , <!-- Add a comma if it's not the last profession -->
+                            @endif
+                        @endforeach                        
+                        </td>
                         <td><a href='/offerts/{{$offert->id}}'><button>View</button></a></td>
                         <td><a href='/offerts/{{$offert->id}}/edit'><button>Edit</button></a></td>
                         <td><form method="POST" action="/offerts/{{$offert->id}}">

@@ -17,7 +17,7 @@ class Offert extends Model
         // 'voivodeship', 
         'city_id', 
         'company', 
-        'profession', 
+        // 'profession', 
         'workplace', 
         'profile-picture', 
         'youtube', 'facebook', 'instagram', 'tiktok', 'twitter', 
@@ -39,5 +39,9 @@ class Offert extends Model
     }
     public function city(){
         return $this->belongsTo(City::class, "city_id");
+    }
+    public function professions()
+    {
+        return $this->belongsToMany(Profession::class);
     }
 }

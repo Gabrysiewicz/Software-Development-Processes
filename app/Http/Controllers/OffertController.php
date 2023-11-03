@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use auth;
-use App\Models\Offert;
 use App\Models\City;
-use Illuminate\Http\Request;
+use App\Models\Offert;
+use App\Models\Profession;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class OffertController extends Controller
 {
@@ -27,7 +28,8 @@ class OffertController extends Controller
     // Create new offert
     public function create(){
         $cities = City::all(); // Retrieve all cities from the database
-        return view('offerts.create', ['cities' => $cities]);
+        $professions = Profession::all(); // Retrieve all professions from the database
+        return view('offerts.create', ['cities' => $cities, 'professions' => $professions]);
     }
     // Store new offert
     public function store(Request $request){
@@ -39,7 +41,8 @@ class OffertController extends Controller
             // 'city_id' => 'string|required|max:16',
             'city_id' => 'required|exists:cities,id',
             'company' => 'string|nullable|max:32',
-            'profession' => 'string|required|max:29',
+            // 'profession' => 'string|required|max:29',
+            'professions' => 'array',
             'workplace' => 'string|required|max:22',
             'profile-picture' => 'nullable',
             'youtube' => 'url|nullable|max:128',
@@ -83,14 +86,18 @@ class OffertController extends Controller
 
         // dd($formFields);
 
-        Offert::create($formFields);
-
+        $offert = Offert::create($formFields);
+        // Attach selected professions to the Offert
+        if ($request->has('professions')) {
+            $offert->professions()->attach($request->input('professions'));
+        }
         return redirect('/')->with('message', 'Your offert has been added.');
     }
     // Show edit form
     public function edit(Offert $offert){
         $cities = City::all(); // Retrieve all cities from the database
-        return view('offerts.edit', ['offert' => $offert, 'cities' => $cities]);
+        $professions = Profession::all(); // Retrieve all professions from the database
+        return view('offerts.edit', ['offert' => $offert, 'cities' => $cities, 'professions' => $professions]);
     }
 
     // Update the offert
@@ -103,7 +110,8 @@ class OffertController extends Controller
             // 'city_id' => 'string|required|max:16',
             'city_id' => 'required|exists:cities,id',
             'company' => 'string|nullable|max:32',
-            'profession' => 'string|required|max:29',
+            // 'profession' => 'string|required|max:29',
+            'professions' => 'array',
             'workplace' => 'string|required|max:22',
             'profile-picture' => 'nullable',
             'youtube' => 'url|nullable|max:128',
@@ -147,7 +155,12 @@ class OffertController extends Controller
 
         
         $offert->update($formFields);
-
+        if ($request->has('professions')) {
+            // Detach the current professions ; Without this line old and new professions will stack
+            $offert->professions()->detach();
+            // Attach selected professions to the Offert
+            $offert->professions()->attach($request->input('professions'));
+        }
         return redirect('/offerts/'. $offert->id)->with('message', 'Updated successfully');
     }
     public function delete(Offert $offert){

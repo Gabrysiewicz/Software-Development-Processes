@@ -43,13 +43,25 @@
                     <p>{{$message}}</p>
                 @enderror
             </div>
-            <div>
+            {{-- <div>
                 <label for='create-profession' >* Profession (comma spearated) </label>
                 <input type='text' id='create-profession' name='profession' placeholder="barber, hairdresser, cosmetic" value="{{old('profession')}}">
                 @error('profession')
                     <p>{{$message}}</p>
                 @enderror
-            </div>              
+            </div>               --}}
+            <div>
+                <label for="create-profession">* Professions</label>
+                <select name="professions[]" id="create-profession" multiple>
+                    @foreach ($professions as $profession)
+                        <option value="{{ $profession->id }}">{{ $profession->name }}</option>
+                    @endforeach
+                </select>
+                @error('professions')
+                    <p>{{ $message }}</p>
+                @enderror
+            </div>
+                      
             <div>                    
                 <label for='create-workplace' >* Workplace (comma spearated) </label>
                 <input type='text' id='create-workplace' name='workplace' placeholder="salon, private, client" value="{{old('workplace')}}">

@@ -55,7 +55,15 @@
                 </svg>{{$offert->city->voivodeship->name}} {{$offert->city->name}}</p>
             </div>
             <div>
-                <p>{{$offert->profession}} at {{$offert->company}}</p>
+                <p>
+                    @foreach ($offert->professions as $profession)
+                        <span> {{$profession->name}} </span>
+                        @if (!$loop->last)
+                            , <!-- Add a comma if it's not the last profession -->
+                        @endif
+                    @endforeach
+                    <span> at {{$offert->company}}</span>
+                </p>
             </div>
             <p>Workplace: {{$offert->workplace}}</p>
         </div>

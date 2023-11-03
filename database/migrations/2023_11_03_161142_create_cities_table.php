@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name', 16);
             $table->timestamps();
         });
+        
+        $this->insertDefaultData();
     }
 
     /**
@@ -25,5 +27,15 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('cities');
+    }
+    protected function insertDefaultData()
+    {
+        DB::table('cities')->insert([
+            ['voivodeship_id' => 1, 'name' => 'lublin', 'created_at' => now(), 'updated_at' => now()],
+            ['voivodeship_id' => 1, 'name' => 'zamosc', 'created_at' => now(), 'updated_at' => now()],
+            ['voivodeship_id' => 1, 'name' => 'chelm', 'created_at' => now(), 'updated_at' => now()],
+            ['voivodeship_id' => 1, 'name' => 'biala podlaska', 'created_at' => now(), 'updated_at' => now()],
+            ['voivodeship_id' => 1, 'name' => 'pulawy', 'created_at' => now(), 'updated_at' => now()],
+        ]);
     }
 };

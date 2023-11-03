@@ -44,10 +44,14 @@
                 @enderror
             </div>
             <div>
-                <label for='edit-profession' >* Profession (comma spearated) </label>
-                <input type='text' id='edit-profession' name='profession' placeholder="barber, hairdresser, cosmetic" value="{{$offert->profession}}">
-                @error('profession')
-                    <p>{{$message}}</p>
+                <label for="edit-profession">* Professions</label>
+                <select name="professions[]" id="edit-profession" multiple>
+                    @foreach ($professions as $profession)
+                        <option value="{{ $profession->id }}">{{ $profession->name }}</option>
+                    @endforeach
+                </select>
+                @error('professions')
+                    <p>{{ $message }}</p>
                 @enderror
             </div>              
             <div>                    
