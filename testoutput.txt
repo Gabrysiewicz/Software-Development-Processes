@@ -1,48 +1,49 @@
 
   [30;42;1m PASS [39;49;22m[39m Tests\Unit\ExampleTest[39m
-  [32;1m✓[39;22m[90m [39m[90mthat true is true[39m
+  [32;1m✓[39;22m[90m [39m[90mthat true is true[39m[90m                                                   [39m [90m0.01s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\AuthTest[39m
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user can create offert[39m[90m                                [39m [90m0.84s[39m  
-  [32;1m✓[39;22m[90m [39m[90munauthenticated user can create offert[39m[90m                              [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user can store offert[39m[90m                                 [39m [90m0.03s[39m  
-  [32;1m✓[39;22m[90m [39m[90munauthenticated user can store offert[39m[90m                               [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user can edit offert[39m[90m                                  [39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90munauthenticated user can edit offert[39m[90m                                [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user can update offert[39m[90m                                [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90munauthenticated user can update offert[39m[90m                              [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user can access menage[39m[90m                                [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90munauthenticated user can access menage[39m[90m                              [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user can delete offert[39m[90m                                [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90munauthenticated user can delete offert[39m[90m                              [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user can logout[39m[90m                                       [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90munauthenticated user can logout[39m[90m                                     [39m [90m0.01s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user can access create offert[39m[90m                         [39m [90m3.28s[39m  
+  [32;1m✓[39;22m[90m [39m[90munauthenticated user can access create offert[39m[90m                       [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user can store offert[39m[90m                                 [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90munauthenticated user can store offert[39m[90m                               [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user can access edit offert[39m[90m                           [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90munauthenticated user can access edit offert[39m[90m                         [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user can update offert[39m[90m                                [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90munauthenticated user can access update offert[39m[90m                       [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user can access manage[39m[90m                                [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90munauthenticated user can access menage[39m[90m                              [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user can delete offert[39m[90m                                [39m [90m0.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90munauthenticated user can delete offert[39m[90m                              [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user can logout[39m[90m                                       [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90munauthenticated user can logout[39m[90m                                     [39m [90m0.02s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\ExampleTest[39m
-  [32;1m✓[39;22m[90m [39m[90mthe application returns a successful response[39m[90m                       [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mthe application returns a successful response[39m[90m                       [39m [90m0.04s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\GuestTest[39m
-  [32;1m✓[39;22m[90m [39m[90mguest user can access register[39m[90m                                      [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user can access register[39m[90m                              [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90mguest user can access login[39m[90m                                         [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user can access login[39m[90m                                 [39m [90m0.01s[39m  
+  [32;1m✓[39;22m[90m [39m[90mguest user can access register[39m[90m                                      [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user can access register[39m[90m                              [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mguest user can access login[39m[90m                                         [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user can access login[39m[90m                                 [39m [90m0.03s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\StorageTest[39m
+  [32;1m✓[39;22m[90m [39m[90mdelete offert deletes profile picture[39m[90m                               [39m [90m0.07s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\ValidationCreateTest[39m
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot create offert without name[39m[90m                [39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot create offert without surname[39m[90m             [39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot create offert without voivodeship[39m[90m         [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot create offert without city[39m[90m                [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot create offert without profession[39m[90m          [39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot create offert without workplace[39m[90m           [39m [90m0.01s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot create offert without first name[39m[90m          [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot create offert without last name[39m[90m           [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot create offert without city[39m[90m                [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot create offert without professions[39m[90m         [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot create offert without workplaces[39m[90m          [39m [90m0.03s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\ValidationEditTest[39m
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot edit offert without name[39m[90m                  [39m [90m0.03s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot edit offert without surname[39m[90m               [39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot edit offert without voivodeship[39m[90m           [39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot edit offert without city[39m[90m                  [39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot edit offert without profession[39m[90m            [39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot edit offert without workplace[39m[90m             [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot edit offert without name[39m[90m                  [39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot edit offert without surname[39m[90m               [39m [90m0.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot edit offert without city[39m[90m                  [39m [90m0.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot edit offert without profession[39m[90m            [39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated user cannot edit offert without workplace[39m[90m             [39m [90m0.06s[39m  
 
-  [90mTests:[39m    [32;1m32 passed[39;22m[90m (59 assertions)[39m
-  [90mDuration:[39m [39m1.34s[39m
+  [90mTests:[39m    [32;1m31 passed[39;22m[90m (57 assertions)[39m
+  [90mDuration:[39m [39m4.53s[39m
 

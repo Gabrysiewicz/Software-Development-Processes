@@ -20,34 +20,34 @@ composer install
 cp .env.example .env
 ```
 
-5. Wygeneruj klucz aplikacji:
-```
-php artisan key:generate
-```
-
-6. Zainstaluj i skonfiguruj narzędzie Sail, które umożliwi uruchomienie kontenerów Dockera (należy wybrać mysql [0]):
+5. Zainstaluj i skonfiguruj narzędzie Sail, które umożliwi uruchomienie kontenerów Dockera (należy wybrać mysql [0]):
 ```
 php artisan sail:install
 ```
 
-7. Wyczyść zbuforowane dane aplikacji, przed uruchomieniem kontenerów:
+6. Wyczyść zbuforowane dane aplikacji, przed uruchomieniem kontenerów:
 ```
 php artisan optimize:clear
 ```
 
-8. Należy uruchomić aplikację:
+7. Należy uruchomić aplikację:
 ```
 ./vendor/bin/sail up -d
 ```
 
-9. Wyczyść już istniejące migracje
+8. Wyczyść już istniejące migracje
 ```
 ./vendor/bin/sail artisan migrate:fresh
 ```
 
-9.5 Moze okazać się potrzeba zmiana uprawnień
+8.5 Moze okazać się potrzeba zmiana uprawnień
 ```
 chmod 777 -R *
+```
+
+9. Podłączenie storage
+```
+./vendor/bin/sail artisan storage:link
 ```
 
 10. Zamknięcie aplikacji (wewnątrz katalogu z projektem)
@@ -57,13 +57,13 @@ chmod 777 -R *
 
 # Temat Projektu
 
-Projekt ma na celu stworzenie aplikacji internetowej, która pozwoli użytkownikom reklamować swoje usługi fryzjerskie. Aplikacja zapewni fryzjerom platformę do tworzenia profili i promowania swoich firm wśród potencjalnych klientów. 
+Projekt ma na celu stworzenie aplikacji internetowej, która pozwoli użytkownikom reklamować swoje usługi fryzjerskie, barberskie, kosmetyczne. Aplikacja zapewni fryzjerom platformę do tworzenia profili i promowania swoich firm wśród potencjalnych klientów. 
 
 Wymagania funkcjonalne
 - Rejestracja i logowanie użytkowników
-- Możliwość tworzenia usług fryzjerskich
-- Możliwość zarządzania swoimi usługami
-- Funkcja wyszukiwania umożliwiająca użytkownikom znalezienie fryzjerów na podstawie lokalizacji.
+- Możliwość tworzenia ofert fryzjerskich
+- Możliwość zarządzania swoimi ofertami
+- Funkcja wyszukiwania umożliwiająca użytkownikom znalezienie fryzjerów na podstawie miasta.
 
 Wymagania niefunkcjonalne
 - Aplikacja powinna być kompatybilna z różnymi przeglądarkami takimi jak Google Chrome, Firefox
@@ -74,7 +74,7 @@ Wymagania niefunkcjonalne
 
 # Testy automatyczne
 
-Testy w Laravelu są tworzone za pomocą `sail` lub `php`:
+Testy w Laravelu są tworzone za pomocą `sail` lub `php` (`sail` wykonuje dokłanie te same zapytania tyle, że już bezpośrednio w kontenerze):
 
 Docker
 ```
@@ -108,52 +108,55 @@ W mojej aplikacji testy sprawdzają:
 
 Aby wykonać testy należy wydać polecenie
 ```
-➜  my-app git:(main) ✗ sail artisan test
+➜  my-app git:(main) sail artisan test
+```
+```
    PASS  Tests\Unit\ExampleTest
-  ✓ that true is true
+  ✓ that true is true                                                    0.01s
 
    PASS  Tests\Feature\AuthTest
-  ✓ authenticated user can create offert                                 0.84s
-  ✓ unauthenticated user can create offert                               0.01s
-  ✓ authenticated user can store offert                                  0.03s
-  ✓ unauthenticated user can store offert                                0.01s
-  ✓ authenticated user can edit offert                                   0.02s
-  ✓ unauthenticated user can edit offert                                 0.01s
-  ✓ authenticated user can update offert                                 0.01s
-  ✓ unauthenticated user can update offert                               0.01s
-  ✓ authenticated user can access menage                                 0.01s
-  ✓ unauthenticated user can access menage                               0.01s
-  ✓ authenticated user can delete offert                                 0.01s
-  ✓ unauthenticated user can delete offert                               0.01s
-  ✓ authenticated user can logout                                        0.01s
-  ✓ unauthenticated user can logout                                      0.01s
+  ✓ authenticated user can access create offert                          3.28s
+  ✓ unauthenticated user can access create offert                        0.02s
+  ✓ authenticated user can store offert                                  0.09s
+  ✓ unauthenticated user can store offert                                0.02s
+  ✓ authenticated user can access edit offert                            0.03s
+  ✓ unauthenticated user can access edit offert                          0.02s
+  ✓ authenticated user can update offert                                 0.04s
+  ✓ unauthenticated user can access update offert                        0.02s
+  ✓ authenticated user can access manage                                 0.03s
+  ✓ unauthenticated user can access menage                               0.02s
+  ✓ authenticated user can delete offert                                 0.05s
+  ✓ unauthenticated user can delete offert                               0.02s
+  ✓ authenticated user can logout                                        0.03s
+  ✓ unauthenticated user can logout                                      0.02s
 
    PASS  Tests\Feature\ExampleTest
-  ✓ the application returns a successful response                        0.02s
+  ✓ the application returns a successful response                        0.04s
 
    PASS  Tests\Feature\GuestTest
-  ✓ guest user can access register                                       0.01s
-  ✓ authenticated user can access register                               0.01s
-  ✓ guest user can access login                                          0.01s
-  ✓ authenticated user can access login                                  0.01s
+  ✓ guest user can access register                                       0.02s
+  ✓ authenticated user can access register                               0.03s
+  ✓ guest user can access login                                          0.02s
+  ✓ authenticated user can access login                                  0.03s
+
+   PASS  Tests\Feature\StorageTest
+  ✓ delete offert deletes profile picture                                0.07s
 
    PASS  Tests\Feature\ValidationCreateTest
-  ✓ authenticated user cannot create offert without name                 0.02s
-  ✓ authenticated user cannot create offert without surname              0.02s
-  ✓ authenticated user cannot create offert without voivodeship          0.01s
-  ✓ authenticated user cannot create offert without city                 0.01s
-  ✓ authenticated user cannot create offert without profession           0.02s
-  ✓ authenticated user cannot create offert without workplace            0.01s
+  ✓ authenticated user cannot create offert without first name           0.04s
+  ✓ authenticated user cannot create offert without last name            0.04s
+  ✓ authenticated user cannot create offert without city                 0.04s
+  ✓ authenticated user cannot create offert without professions          0.04s
+  ✓ authenticated user cannot create offert without workplaces           0.03s
 
    PASS  Tests\Feature\ValidationEditTest
-  ✓ authenticated user cannot edit offert without name                   0.03s
-  ✓ authenticated user cannot edit offert without surname                0.02s
-  ✓ authenticated user cannot edit offert without voivodeship            0.02s
-  ✓ authenticated user cannot edit offert without city                   0.02s
-  ✓ authenticated user cannot edit offert without profession             0.02s
-  ✓ authenticated user cannot edit offert without workplace              0.02s
+  ✓ authenticated user cannot edit offert without name                   0.06s
+  ✓ authenticated user cannot edit offert without surname                0.05s
+  ✓ authenticated user cannot edit offert without city                   0.05s
+  ✓ authenticated user cannot edit offert without profession             0.06s
+  ✓ authenticated user cannot edit offert without workplace              0.06s
 
-  Tests:    32 passed (59 assertions)
-  Duration: 1.34s
+  Tests:    31 passed (57 assertions)
+  Duration: 4.53s
 ```
 
