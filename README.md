@@ -75,6 +75,7 @@ Wymagania niefunkcjonalne
 # Testy automatyczne
 
 Testy w Laravelu są tworzone za pomocą `sail` lub `php`:
+
 Docker
 ```
 sail artisan make:test MyTest
