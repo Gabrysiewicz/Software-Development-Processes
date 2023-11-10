@@ -14,7 +14,7 @@ class AuthTest extends TestCase
     //=== Route
     // Route::get('/offerts/create', [OffertController::class, 'create'])->middleware('auth');
     // @Auth
-    public function test_authenticated_user_can_create_offert(): void
+    public function test_authenticated_user_can_access_create_offert(): void
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/offerts/create');
@@ -22,7 +22,7 @@ class AuthTest extends TestCase
         $response->assertStatus(200);
     }
     // @Guest
-    public function test_unauthenticated_user_can_create_offert(): void
+    public function test_unauthenticated_user_can_access_create_offert(): void
     {
         $response = $this->get('/offerts/create');
         $response->assertRedirect('/login');
@@ -88,7 +88,7 @@ class AuthTest extends TestCase
     //=== Route
     // Route::get('/offerts/{offert}/edit', [OffertController::class, 'edit'])->middleware('auth');
     // @Auth
-    public function test_authenticated_user_can_edit_offert(){
+    public function test_authenticated_user_can_access_edit_offert(){
         // Create an authenticated user
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -111,7 +111,7 @@ class AuthTest extends TestCase
         $response->assertStatus(200);
     }
     // @Guest
-    public function test_unauthenticated_user_can_edit_offert(){
+    public function test_unauthenticated_user_can_access_edit_offert(){
         $randId = rand(1, 100);
         $response = $this->get("/offerts/{$randId}/edit");
         // Assert the response
@@ -152,10 +152,10 @@ class AuthTest extends TestCase
         ]);
 
         // Assert the response
-        $response->assertStatus(302); // Adjust the expected status code
+        $response->assertStatus(302);
     }
     // @Guest
-    public function test_unauthenticated_user_can_update_offert()
+    public function test_unauthenticated_user_can_access_update_offert()
     {
         $randId = rand(1, 100);
         // Simulate making a PUT request to update the offert
@@ -168,7 +168,7 @@ class AuthTest extends TestCase
     //=== Route
     // Route::get('/offerts/manage', [OffertController::class, 'manage'])->middleware('auth');
     // @Auth
-    public function test_authenticated_user_can_access_menage(): void
+    public function test_authenticated_user_can_access_manage(): void
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/offerts/manage');
@@ -238,8 +238,8 @@ class AuthTest extends TestCase
         $response = $this->post("/logout");
 
         // Assert the response
-        $response->assertStatus(302); 
-        $response->assertRedirect('/'); 
+        $response->assertStatus(302);
+        $response->assertRedirect('/');
     }
     // @Guest
     public function test_unauthenticated_user_can_logout(): void

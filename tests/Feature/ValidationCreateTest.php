@@ -9,10 +9,17 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ValidationCreateTest extends TestCase
 {
+    protected $user;
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+    }
     // POST: /offerts
     public function test_authenticated_user_cannot_create_offert_without_first_name()
     {
-        $user = User::factory()->create();
+        // $user = User::factory()->create();
     
         $data = [
             'last_name' => 'Doe',
@@ -23,13 +30,13 @@ class ValidationCreateTest extends TestCase
             'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
-        $response = $this->actingAs($user)->post('/offerts', $data);
+        $response = $this->actingAs($this->user)->post('/offerts', $data);
         
         $response->assertSessionHasErrors(['first_name']);
     }
     public function test_authenticated_user_cannot_create_offert_without_last_name()
     {
-        $user = User::factory()->create();
+        // $user = User::factory()->create();
         
         $data = [
             'first_name' => 'Jone',
@@ -41,13 +48,13 @@ class ValidationCreateTest extends TestCase
             'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
-        $response = $this->actingAs($user)->post('/offerts', $data);
+        $response = $this->actingAs($this->user)->post('/offerts', $data);
         
         $response->assertSessionHasErrors(['last_name']);
     }
     public function test_authenticated_user_cannot_create_offert_without_city()
     {
-        $user = User::factory()->create();
+        // $user = User::factory()->create();
         
         $data = [
             'first_name' => 'Jone',
@@ -59,13 +66,13 @@ class ValidationCreateTest extends TestCase
             'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
-        $response = $this->actingAs($user)->post('/offerts', $data);
+        $response = $this->actingAs($this->user)->post('/offerts', $data);
         
         $response->assertSessionHasErrors(['city_id']);
     }
     public function test_authenticated_user_cannot_create_offert_without_professions()
     {
-        $user = User::factory()->create();
+        // $user = User::factory()->create();
         
         $data = [
             'first_name' => 'John',
@@ -77,13 +84,13 @@ class ValidationCreateTest extends TestCase
             'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
-        $response = $this->actingAs($user)->post('/offerts', $data);
+        $response = $this->actingAs($this->user)->post('/offerts', $data);
         
         $response->assertSessionHasErrors(['professions']);
     }
     public function test_authenticated_user_cannot_create_offert_without_workplaces()
     {
-        $user = User::factory()->create();
+        // $user = User::factory()->create();
         
         $data = [
             'first_name' => 'Jone',
@@ -95,7 +102,7 @@ class ValidationCreateTest extends TestCase
             'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
-        $response = $this->actingAs($user)->post('/offerts', $data);
+        $response = $this->actingAs($this->user)->post('/offerts', $data);
         
         $response->assertSessionHasErrors(['workplaces']);
     }

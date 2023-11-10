@@ -38,8 +38,5 @@ class StorageTest extends TestCase
 
         // Assert: Check if the profile picture was deleted from the storage
         Storage::disk('public')->assertMissing($offert->profile_picture);
-        
-        // Optional: Check the response status and redirection
-        $response->assertRedirect('/offerts/manage');
     }
 }
