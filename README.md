@@ -34,23 +34,31 @@ php artisan optimize:clear
 ```
 ./vendor/bin/sail up -d
 ```
+Na adresie localhost powinna działać aplikacja
+Następne 2 operacje można wykonać ręcznie przeklikując się przez aplikację na localhost,
+albo skorzystać z poleceń w krokach 8 i 9.
 
 8. Wyczyść już istniejące migracje
 ```
 ./vendor/bin/sail artisan migrate:fresh
 ```
 
-8.5 Moze okazać się potrzeba zmiana uprawnień
+8.5 Moze okazać się potrzebna zmiana uprawnień
 ```
 chmod 777 -R *
 ```
 
-9. Podłączenie storage
+9. Generowanie klucza aplikacji
+```
+./vendor/bin/sail artisan key:generate
+```
+
+10. Podłączenie storage, niezbędne dla zdjęć profilowych
 ```
 ./vendor/bin/sail artisan storage:link
 ```
 
-10. Zamknięcie aplikacji (wewnątrz katalogu z projektem)
+11. Zamknięcie aplikacji (wewnątrz katalogu z projektem)
 ```
 ./vendor/bin/sail down
 ```
