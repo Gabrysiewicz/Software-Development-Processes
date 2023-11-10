@@ -27,12 +27,12 @@ class Offert extends Model
     {
         $query->select('offerts.*')
             ->join('cities', 'offerts.city_id', '=', 'cities.id')
+            ->join('offert_profession', 'offerts.id', '=', 'offert_profession.offert_id')
+            ->join('professions', 'offert_profession.profession_id', '=', 'professions.id')
             ->groupBy('offerts.id');
 
         if ($filters['profession']) {
-            $query->join('offert_profession', 'offerts.id', '=', 'offert_profession.offert_id')
-                ->join('professions', 'offert_profession.profession_id', '=', 'professions.id')
-                ->where('professions.name', 'like', '%' . $filters['profession'] . '%');
+            $query->where('professions.name', 'like', '%' . $filters['profession'] . '%');
         }
     
         if ($filters['city']) {
