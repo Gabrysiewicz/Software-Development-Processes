@@ -4,7 +4,7 @@
         <form action='/offerts/{{$offert->id}}' method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div>
+            {{-- <div>
                 <label for='edit-name' >* name</label>
                 <input type='text' name='name' id='edit-name' placeholder="Adam" value="{{$offert->name}}">
                 @error('name')
@@ -15,6 +15,20 @@
                 <label for='edit-surname' >* surname</label>
                 <input type='text' name='surname' id='edit-surname' placeholder="Mickiewcz" value="{{$offert->surname}}">
                 @error('surname')
+                    <p>{{$message}}</p>
+                @enderror
+            </div> --}}
+            <div>
+                <label for='edit-first_name' >* First Name</label>
+                <input type='text' name='first_name' id='edit-first_name' placeholder="Adam" value="{{$offert->first_name}}"">
+                @error('first_name')
+                    <p>{{$message}}</p>
+                @enderror
+            </div>
+            <div>
+                <label for='edit-last_name' >* Last Name</label>
+                <input type='text' name='last_name' id='edit-last_name' placeholder="Mickiewcz" value="{{$offert->last_name}}">
+                @error('last_name')
                     <p>{{$message}}</p>
                 @enderror
             </div>
@@ -54,14 +68,25 @@
                     <p>{{ $message }}</p>
                 @enderror
             </div>              
-            <div>                    
+            {{-- <div>                    
                 <label for='edit-workplace' >* Workplace (comma spearated) </label>
                 <input type='text' id='edit-workplace' name='workplace' placeholder="salon, private, client" value="{{$offert->workplace}}">
-            </div>  
+            </div>   --}}
+            <div>
+                <label for="edit-workplace">* Workplaces</label>
+                <select name="workplaces[]" id="edit-workplace" multiple>
+                    @foreach ($workplaces as $workplace)
+                        <option value="{{ $workplace->id }}">{{ $workplace->name }}</option>
+                    @endforeach
+                </select>
+                @error('workplaces')
+                    <p>{{ $message }}</p>
+                @enderror
+            </div>   
             <div>                    
-                <label for='edit-profile-picture' > Profile picture </label>
-                <input type='file' id='edit-profile-picture' name='profile-picture' value="{{$offert['profile-picture']}}">
-                <img src='{{$offert['profile-picture'] ? asset('storage/'. $offert['profile-picture']) : asset('images/no-image.jpg') }}' alt='pfp' width='150px' height='150px'>
+                <label for='edit-profile_picture' > Profile picture </label>
+                <input type='file' id='edit-profile_picture' name='profile_picture' value="{{$offert['profile_picture']}}">
+                <img src='{{$offert['profile_picture'] ? asset('storage/'. $offert['profile_picture']) : asset('images/no-image.jpg') }}' alt='pfp' width='150px' height='150px'>
 
             </div>  
             <div>

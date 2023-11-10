@@ -10,173 +10,100 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ValidationEditTest extends TestCase
 {
+    protected $user;
+    protected $offert;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+
+        $this->offert = Offert::create([
+            'user_id' => $this->user->id,
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'city_id' => 1,
+            'company' => 'Barber 44',
+            'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
+        ]);
+    }
     // PUT: /offerts/{id}
     public function test_authenticated_user_cannot_edit_offert_without_name()
     {
-        $user = User::factory()->create();
-        $offert = new Offert([
-            'user_id' => $user->id,
-            'name' => 'John',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
-            'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon'
-        ]);
-        $offert->save();
-        
         $data = [
-            // Missing 'name' field
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            // 'first_name' => 'Jone',
+            'last_name' => 'Doe',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon',
+            'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
-        $response = $this->actingAs($user)->put("/offerts/{$offert->id}", $data);
-        $response->assertSessionHasErrors(['name']);
+        $response = $this->actingAs($this->user)->put("/offerts/{$this->offert->id}", $data);
+        $response->assertSessionHasErrors(['first_name']);
     }
     public function test_authenticated_user_cannot_edit_offert_without_surname()
-    {
-        $user = User::factory()->create();
-        $offert = new Offert([
-            'user_id' => $user->id,
-            'name' => 'John',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
-            'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon'
-        ]);
-        $offert->save();
-        
+    { 
         $data = [
-            'name' => 'Jon',
-            // Missing 'surname' field
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'first_name' => 'Jone',
+            // 'last_name' => 'Doe',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon',
-        ];
-        $response = $this->actingAs($user)->put("/offerts/{$offert->id}", $data);
-        $response->assertSessionHasErrors(['surname']);
-    }
-    public function test_authenticated_user_cannot_edit_offert_without_voivodeship()
-    {
-        $user = User::factory()->create();
-        $offert = new Offert([
-            'user_id' => $user->id,
-            'name' => 'John',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
-            'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon'
-        ]);
-        $offert->save();
-        
-        $data = [
-            'name' => 'Jon',
-            'surname' => 'Doe',
-            // Missing 'voivodeship' field
-            'city' => 'Lublin',
-            'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon',
+            'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
-        $response = $this->actingAs($user)->put("/offerts/{$offert->id}", $data);
-        $response->assertSessionHasErrors(['voivodeship']);
+        $response = $this->actingAs($this->user)->put("/offerts/{$this->offert->id}", $data);
+        $response->assertSessionHasErrors(['last_name']);
     }
     public function test_authenticated_user_cannot_edit_offert_without_city()
     {
-        $user = User::factory()->create();
-        $offert = new Offert([
-            'user_id' => $user->id,
-            'name' => 'John',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
-            'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon'
-        ]);
-        $offert->save();
-
         $data = [
-            'name' => 'Jon',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            // Missing 'city' field
+            'first_name' => 'Jone',
+            'last_name' => 'Doe',
+            // 'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon',
+            'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
-        $response = $this->actingAs($user)->put("/offerts/{$offert->id}", $data);
-        $response->assertSessionHasErrors(['city']);
+        $response = $this->actingAs($this->user)->put("/offerts/{$this->offert->id}", $data);
+        $response->assertSessionHasErrors(['city_id']);
     }
     public function test_authenticated_user_cannot_edit_offert_without_profession()
     {
-        $user = User::factory()->create();
-        $offert = new Offert([
-            'user_id' => $user->id,
-            'name' => 'John',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
-            'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon'
-        ]);
-        $offert->save();
-
         $data = [
-            'name' => 'Jon',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'first_name' => 'Jone',
+            'last_name' => 'Doe',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            // Missing 'profession' field
-            'workplace' => 'Salon',
+            // 'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
-        $response = $this->actingAs($user)->put("/offerts/{$offert->id}", $data);
-        $response->assertSessionHasErrors(['profession']);
+        $response = $this->actingAs($this->user)->put("/offerts/{$this->offert->id}", $data);
+        $response->assertSessionHasErrors(['professions']);
     }
     public function test_authenticated_user_cannot_edit_offert_without_workplace()
     {
-        $user = User::factory()->create();
-        $offert = new Offert([
-            'user_id' => $user->id,
-            'name' => 'John',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
-            'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon'
-        ]);
-        $offert->save();
-
         $data = [
-            'name' => 'Jon',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'first_name' => 'Jone',
+            'last_name' => 'Doe',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber'
-            // Missing 'workplace' field
+            'professions' => [1],
+            // 'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
-        $response = $this->actingAs($user)->put("/offerts/{$offert->id}", $data);
-        
-        $response->assertSessionHasErrors(['workplace']);
+        $response = $this->actingAs($this->user)->put("/offerts/{$this->offert->id}", $data);
+        $response->assertSessionHasErrors(['workplaces']);
     }
 }

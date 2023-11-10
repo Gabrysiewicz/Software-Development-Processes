@@ -6,17 +6,24 @@ use auth;
 use App\Models\City;
 use App\Models\Offert;
 use App\Models\Profession;
+use App\Models\Workplace;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class OffertController extends Controller
 {
     // Get & Show all 
     public function index(){
+        $filters = [
+            'profession' => request('profession', null),
+            'city' => request('city', null),
+        ];
+    
+        $offerts = Offert::filter($filters)->get();
+    
         return view('offerts.index', [
-            // 'offerts' => Offert::all()
-             'offerts' => Offert::latest()->filter(request(['profession', 'search']))->get()
-            // 'offerts' => Offert::latest()->filter(request(['profession', 'search']))->paginate(6)
+            'offerts' => $offerts
         ]);
     }
     // Show single
@@ -29,22 +36,28 @@ class OffertController extends Controller
     public function create(){
         $cities = City::all(); // Retrieve all cities from the database
         $professions = Profession::all(); // Retrieve all professions from the database
-        return view('offerts.create', ['cities' => $cities, 'professions' => $professions]);
+        $workplaces = Workplace::all(); // Retrieve all workplaces from the database
+
+        return view('offerts.create', [
+            'cities' => $cities, 
+            'professions' => $professions,
+            'workplaces' => $workplaces
+        ]);
     }
     // Store new offert
     public function store(Request $request){
-        // dd($request->all());
         $formFields = $request->validate([
-            'name' => 'string|required|max:17',
-            'surname' => 'string|required|max:11',
+            'first_name' => 'string|required|max:16',
+            'last_name' => 'string|required|max:16',
             // 'voivodeship' => 'string|required|max:16',
             // 'city_id' => 'string|required|max:16',
             'city_id' => 'required|exists:cities,id',
             'company' => 'string|nullable|max:32',
             // 'profession' => 'string|required|max:29',
-            'professions' => 'array',
-            'workplace' => 'string|required|max:22',
-            'profile-picture' => 'nullable',
+            'professions' => 'array|required',
+            // 'workplace' => 'string|required|max:22',
+            'workplaces' => 'array|required',
+            'profile_picture' => 'nullable',
             'youtube' => 'url|nullable|max:128',
             'facebook' => 'url|nullable|max:128',
             'instagram' => 'url|nullable|max:128',
@@ -53,6 +66,14 @@ class OffertController extends Controller
             'description' => 'string|nullable|max:512'
         ]);
 
+        // Check First Name 
+        if (empty($request->first_name) || Str::contains($request->first_name, ' ')) {
+            return redirect()->back()->withErrors(['first_name' => 'Cant be empty or contain spaces']);
+        }
+        // Check Last Name 
+        if (empty($request->last_name) || Str::contains($request->last_name, ' ')) {
+            return redirect()->back()->withErrors(['last_name' => 'Cant be empty or contain spaces']);
+        }
         // Check Youtube link
         if (!empty($request->youtube) && !Str::startsWith($request->youtube, 'https://www.youtube.com/')) {
             return redirect()->back()->withErrors(['youtube' => 'Invalid YouTube link.']);
@@ -78,18 +99,22 @@ class OffertController extends Controller
             return redirect()->back()->withErrors(['twitter' => 'Invalid Twitter link.']);
         }
 
-        if($request->hasFile('profile-picture')){
-            $formFields['profile-picture'] = $request->file('profile-picture')->store('profile-pictures', 'public');
+        if($request->hasFile('profile_picture')){
+            $formFields['profile_picture'] = $request->file('profile_picture')->store('profile_pictures', 'public');
         }
         $formFields['user_id'] = auth()->id();
         $formFields['description'] = nl2br(e($request->description));
 
         // dd($formFields);
-
         $offert = Offert::create($formFields);
+        
         // Attach selected professions to the Offert
         if ($request->has('professions')) {
             $offert->professions()->attach($request->input('professions'));
+        }
+        // Attach selected workplaces to the Offert
+        if ($request->has('workplaces')) {
+            $offert->workplaces()->attach($request->input('workplaces'));
         }
         return redirect('/')->with('message', 'Your offert has been added.');
     }
@@ -97,23 +122,30 @@ class OffertController extends Controller
     public function edit(Offert $offert){
         $cities = City::all(); // Retrieve all cities from the database
         $professions = Profession::all(); // Retrieve all professions from the database
-        return view('offerts.edit', ['offert' => $offert, 'cities' => $cities, 'professions' => $professions]);
+        $workplaces = Workplace::all(); // Retrieve all workplaces from the database
+        return view('offerts.edit', [
+            'offert' => $offert, 
+            'cities' => $cities, 
+            'professions' => $professions,
+            'workplaces' => $workplaces
+        ]);
     }
 
     // Update the offert
     public function update(Request $request, Offert $offert){
         // dd($request->all());
         $formFields = $request->validate([
-            'name' => 'string|required|max:17',
-            'surname' => 'string|required|max:11',
+            'first_name' => 'string|required|max:16',
+            'last_name' => 'string|required|max:16',
             // 'voivodeship' => 'string|required|max:16',
             // 'city_id' => 'string|required|max:16',
             'city_id' => 'required|exists:cities,id',
             'company' => 'string|nullable|max:32',
             // 'profession' => 'string|required|max:29',
-            'professions' => 'array',
-            'workplace' => 'string|required|max:22',
-            'profile-picture' => 'nullable',
+            'professions' => 'array|required',
+            // 'workplace' => 'string|required|max:22',
+            'workplaces' => 'array|required',
+            'profile_picture' => 'nullable',
             'youtube' => 'url|nullable|max:128',
             'facebook' => 'url|nullable|max:128',
             'instagram' => 'url|nullable|max:128',
@@ -121,7 +153,14 @@ class OffertController extends Controller
             'twitter' => 'url|nullable|max:128',
             'description' => 'string|nullable|max:512'
         ]);
-
+        // Check First Name 
+        if (empty($request->first_name) || Str::contains($request->first_name, ' ')) {
+            return redirect()->back()->withErrors(['first_name' => 'Cant be empty or contain spaces']);
+        }
+        // Check Last Name 
+        if (empty($request->last_name) || Str::contains($request->last_name, ' ')) {
+            return redirect()->back()->withErrors(['last_name' => 'Cant be empty or contain spaces']);
+        }
         // Check Youtube link
         if (!empty($request->youtube) && !Str::startsWith($request->youtube, 'https://www.youtube.com/')) {
             return redirect()->back()->withErrors(['youtube' => 'Invalid YouTube link.']);
@@ -147,8 +186,12 @@ class OffertController extends Controller
             return redirect()->back()->withErrors(['twitter' => 'Invalid Twitter link.']);
         }
 
-        if($request->hasFile('profile-picture')){
-            $formFields['profile-picture'] = $request->file('profile-picture')->store('profile-pictures', 'public');
+        if($request->hasFile('profile_picture')){
+            if ($offert->profile_picture) {
+                // Delete the associated profile picture
+                Storage::delete('public/' . $offert->profile_picture);
+            }
+            $formFields['profile_picture'] = $request->file('profile_picture')->store('profile_pictures', 'public');
         }
         // dd($formFields);
         $formFields['description'] = nl2br(e($request->description));
@@ -161,9 +204,20 @@ class OffertController extends Controller
             // Attach selected professions to the Offert
             $offert->professions()->attach($request->input('professions'));
         }
+        if ($request->has('workplaces')) {
+            // Detach the current workplaces ; Without this line old and new workplaces will stack
+            $offert->workplaces()->detach();
+            // Attach selected workplaces to the Offert
+            $offert->workplaces()->attach($request->input('workplaces'));
+        }
         return redirect('/offerts/'. $offert->id)->with('message', 'Updated successfully');
     }
     public function delete(Offert $offert){
+        // Delete associated image files
+        if ($offert->profile_picture) {
+            // Delete the associated profile picture
+            Storage::delete('public/' . $offert->profile_picture);
+        }
         $offert->delete();
         return redirect('/offerts/manage')->with('message', 'Deleted Succesfully');
     }

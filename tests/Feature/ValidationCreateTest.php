@@ -10,112 +10,93 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class ValidationCreateTest extends TestCase
 {
     // POST: /offerts
-    public function test_authenticated_user_cannot_create_offert_without_name()
+    public function test_authenticated_user_cannot_create_offert_without_first_name()
     {
         $user = User::factory()->create();
-        
+    
         $data = [
-            // Missing 'name' field
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'last_name' => 'Doe',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon',
+            'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
         $response = $this->actingAs($user)->post('/offerts', $data);
         
-        $response->assertSessionHasErrors(['name']);
+        $response->assertSessionHasErrors(['first_name']);
     }
-    public function test_authenticated_user_cannot_create_offert_without_surname()
+    public function test_authenticated_user_cannot_create_offert_without_last_name()
     {
         $user = User::factory()->create();
         
         $data = [
-            'name' => 'Jon',
-            // Missing 'surname' field
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'first_name' => 'Jone',
+            // Missing 'last_name' field
+            'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon',
+            'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
         $response = $this->actingAs($user)->post('/offerts', $data);
         
-        $response->assertSessionHasErrors(['surname']);
-    }
-    public function test_authenticated_user_cannot_create_offert_without_voivodeship()
-    {
-        $user = User::factory()->create();
-        
-        $data = [
-            'name' => 'Jon',
-            'surname' => 'Doe',
-            // Missing 'voivodeship' field
-            'city' => 'Lublin',
-            'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon',
-        ];
-        
-        $response = $this->actingAs($user)->post('/offerts', $data);
-        
-        $response->assertSessionHasErrors(['voivodeship']);
+        $response->assertSessionHasErrors(['last_name']);
     }
     public function test_authenticated_user_cannot_create_offert_without_city()
     {
         $user = User::factory()->create();
         
         $data = [
-            'name' => 'Jon',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            // Missing 'city' field
+            'first_name' => 'Jone',
+            'last_name' => 'Doe',
+            // 'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon',
+            'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
         $response = $this->actingAs($user)->post('/offerts', $data);
         
-        $response->assertSessionHasErrors(['city']);
+        $response->assertSessionHasErrors(['city_id']);
     }
-    public function test_authenticated_user_cannot_create_offert_without_profession()
+    public function test_authenticated_user_cannot_create_offert_without_professions()
     {
         $user = User::factory()->create();
         
         $data = [
-            'name' => 'Jon',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            // Missing 'profession' field
-            'workplace' => 'Salon',
+            // 'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
         $response = $this->actingAs($user)->post('/offerts', $data);
         
-        $response->assertSessionHasErrors(['profession']);
+        $response->assertSessionHasErrors(['professions']);
     }
-    public function test_authenticated_user_cannot_create_offert_without_workplace()
+    public function test_authenticated_user_cannot_create_offert_without_workplaces()
     {
         $user = User::factory()->create();
         
         $data = [
-            'name' => 'Jon',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'first_name' => 'Jone',
+            'last_name' => 'Doe',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber'
-            // Missing 'workplace' field
+            'professions' => [1],
+            // 'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ];
         
         $response = $this->actingAs($user)->post('/offerts', $data);
         
-        $response->assertSessionHasErrors(['workplace']);
+        $response->assertSessionHasErrors(['workplaces']);
     }
 }

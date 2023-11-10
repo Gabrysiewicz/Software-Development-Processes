@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -12,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('voivodeships', function (Blueprint $table) {
+        Schema::create('workplaces', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 17);
+            $table->string('name', 8);
             $table->timestamps();
         });
-
+        
         $this->insertDefaultData();
     }
 
@@ -26,16 +25,14 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('voivodeships');
+        Schema::dropIfExists('workplaces');
     }
-
     protected function insertDefaultData()
     {
-        DB::table('voivodeships')->insert([
-            ['name' => 'lubelskie', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'mazowieckie ', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'podkarpackie ', 'created_at' => now(), 'updated_at' => now()]
+        DB::table('workplaces')->insert([
+            ['name' => 'salon', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'private', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'client', 'created_at' => now(), 'updated_at' => now()]
         ]);
     }
-
 };

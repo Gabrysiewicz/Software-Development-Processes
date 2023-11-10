@@ -27,6 +27,7 @@ class AuthTest extends TestCase
         $response = $this->get('/offerts/create');
         $response->assertRedirect('/login');
     }
+
     //=== Route
     // Route::post('/offerts', [OffertController::class, 'store'])->middleware('auth');
     // @Auth
@@ -37,13 +38,13 @@ class AuthTest extends TestCase
 
         // Simulate creating an offert
         $response = $this->post('/offerts', [
-            'name' => 'John',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon'
+            'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ]);
 
         // Assert the response
@@ -51,42 +52,39 @@ class AuthTest extends TestCase
 
         // Optional: Check if the offert was saved in the database
         $this->assertDatabaseHas('offerts', [
-            'name' => 'John',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon'
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ]);
     }
     // @Guest
     public function test_unauthenticated_user_can_store_offert(){
         // Simulate creating an offert
         $response = $this->post('/offerts', [
-            'name' => 'John',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon'
+            'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ]);
 
         // Assert the response
         $response->assertRedirect('/login');
 
-        // Optional: Check if the offert was saved in the database
+        // Optional: Check if the offert was not saved in the database
         $this->assertDatabaseMissing('offerts', [
-            'name' => 'John',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon'
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ]);
     }
+
     //=== Route
     // Route::get('/offerts/{offert}/edit', [OffertController::class, 'edit'])->middleware('auth');
     // @Auth
@@ -98,13 +96,13 @@ class AuthTest extends TestCase
         // Simulate accessing the edit route for a specific offert
         $offert = new Offert([
             'user_id' => $user->id,
-            'name' => 'John',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon'
+            'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ]);
         $offert->save();
         $response = $this->get("/offerts/{$offert->id}/edit");
@@ -119,6 +117,7 @@ class AuthTest extends TestCase
         // Assert the response
         $response->assertRedirect('/login');
     }
+
     //=== Route
     // Route::put('/offerts/{offert}', [OffertController::class, 'update'])->middleware('auth');
     // @Auth
@@ -131,25 +130,25 @@ class AuthTest extends TestCase
         // Create an offert owned by the authenticated user
         $offert = new Offert([
             'user_id' => $user->id,
-            'name' => 'John',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon'
+            'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ]);
         $offert->save();
         
         // Simulate making a PUT request to update the offert
         $response = $this->put("/offerts/{$offert->id}", [
-            'name' => 'Juliusz',
-            'surname' => 'Słowacki',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'first_name' => 'Juliusz',
+            'last_name' => 'Slowacki',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon'
+            'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ]);
 
         // Assert the response
@@ -165,6 +164,7 @@ class AuthTest extends TestCase
         // Assert the response
         $response->assertRedirect('/login');
     }
+
     //=== Route
     // Route::get('/offerts/manage', [OffertController::class, 'manage'])->middleware('auth');
     // @Auth
@@ -182,6 +182,7 @@ class AuthTest extends TestCase
 
         $response->assertRedirect('/login');
     }
+
     //=== Route
     // Route::delete('/offerts/{offert}', [OffertController::class, 'delete'])->middleware('auth');
     // @Auth
@@ -194,13 +195,13 @@ class AuthTest extends TestCase
         // Create an offert owned by the authenticated user
         $offert = new Offert([
             'user_id' => $user->id,
-            'name' => 'John',
-            'surname' => 'Doe',
-            'voivodeship' => 'Lubelskie',
-            'city' => 'Lublin',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'city_id' => 1,
             'company' => 'Barber 44',
-            'profession' => 'Barber',
-            'workplace' => 'Salon'
+            'professions' => [1],
+            'workplaces' => [1],
+            'profile_picture' => 'profile_pictures/test_picture.jpg'
         ]);
         $offert->save();
 
@@ -223,6 +224,7 @@ class AuthTest extends TestCase
         $response->assertRedirect('/login');
         $response->assertStatus(302); 
     }
+    
     //=== Route
     // Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
     // @Auth

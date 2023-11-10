@@ -27,6 +27,7 @@ class GuestTest extends TestCase
 
         $response->assertRedirect('/home');
     }
+    
     //==== Route
     // Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
     // @Guest

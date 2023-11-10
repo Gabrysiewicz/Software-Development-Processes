@@ -7,9 +7,9 @@
 
         </div>
         <div id='intro'>
-            <img src='{{$offert['profile-picture'] ? asset('storage/'. $offert['profile-picture']) : asset('images/no-image.jpg') }}' alt='pfp' id='profile-picture' width='150px' height='150px'>
+            <img src='{{$offert['profile_picture'] ? asset('storage/'. $offert['profile_picture']) : asset('images/no-image.jpg') }}' alt='pfp' id='profile_picture' width='250px' height='250px'>
             
-            <h1>{{$offert->name}} {{$offert->surname}}</h1>
+            <h1>{{$offert->first_name}} {{$offert->last_name}}</h1>
             <div id='social-media'>
                 @if (isset($offert->youtube))
                 <a href="{{$offert->youtube}}">
@@ -65,7 +65,18 @@
                     <span> at {{$offert->company}}</span>
                 </p>
             </div>
-            <p>Workplace: {{$offert->workplace}}</p>
+            {{-- <p>Workplace: {{$offert->workplace}}</p> --}}
+            <div>
+                <p>
+                    <span> Workplaces: </span>
+                    @foreach ($offert->workplaces as $workplace)
+                        <span> {{$workplace->name}} </span>
+                        @if (!$loop->last)
+                            , <!-- Add a comma if it's not the last profession -->
+                        @endif
+                    @endforeach
+                </p>
+            </div>
         </div>
 
         <div id='description'>

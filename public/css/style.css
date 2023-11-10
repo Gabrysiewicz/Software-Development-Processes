@@ -66,3 +66,21 @@ nav a:hover{
 @media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
 @media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
 @media (min-width:1281px) { /* hi-res laptops and desktops */ }
+
+@media (max-width:1300px) { /* big landscape tablets, laptops, and desktops */ 
+    .offert{
+        flex-basis: 80%;
+
+    }
+}
+@media (max-width:575px) { /* big landscape tablets, laptops, and desktops */ 
+    .offert{
+        font-size: 25px;
+    }
+    nav > a{
+        display: none;
+    }
+    nav{
+        font-size: 8px;
+    }
+}

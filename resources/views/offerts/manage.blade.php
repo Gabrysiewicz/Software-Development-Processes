@@ -2,13 +2,13 @@
     <section id='section-manage-table'>
         <table>
             <thead>
-                <tr><th>Name</th><th>Surname</th><th>Profession</th><th>View</th><th>Edit</th><th>Delete</th></tr>
+                <tr><th>First Name</th><th>Last Name</th><th>Profession</th><th>View</th><th>Edit</th><th>Delete</th></tr>
             </thead>
             <tbody>
                 @unless ($offerts->isEmpty())
                     @foreach ( $offerts as $offert)
-                    <tr><td>{{$offert->name}}</td>
-                        <td>{{$offert->surname}}</td>
+                    <tr><td>{{$offert->first_name}}</td>
+                        <td>{{$offert->last_name}}</td>
                         <td>
                         @foreach ($offert->professions as $profession)
                             {{$profession->name}}

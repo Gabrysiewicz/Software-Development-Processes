@@ -14,7 +14,7 @@
     flex-wrap: nowrap;
     /* box-shadow: 0 0 5px 5px rgb(0, 255, 85); */
 }
-#search{
+#search-city{
     flex-basis: 90%;
     font-size: 150%;
 }

@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('offerts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('name');
-            $table->string('surname');
-            $table->string('profile-picture')->nullable();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('profile_picture')->nullable();
             // $table->string('profession');
-            $table->string('workplace');
+            // $table->string('workplace');
             $table->unsignedBigInteger('city_id');
+            // $table->unsignedBigInteger('profession_id');
+            // $table->unsignedBigInteger('workplace_id');
             $table->string('company')->nullable();
             $table->string('youtube')->nullable();
             $table->string('facebook')->nullable();
@@ -29,6 +31,8 @@ return new class extends Migration
             $table->longText('description')->nullable();
 
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            // $table->foreign('profession_id')->references('id')->on('offert_profession')->onDelete('cascade');
+            // $table->foreign('workplace_id')->references('id')->on('offert_workplace')->onDelete('cascade');
             $table->timestamps();
         });
     }

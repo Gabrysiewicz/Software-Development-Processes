@@ -36,6 +36,18 @@ return new class extends Migration
             ['voivodeship_id' => 1, 'name' => 'chelm', 'created_at' => now(), 'updated_at' => now()],
             ['voivodeship_id' => 1, 'name' => 'biala podlaska', 'created_at' => now(), 'updated_at' => now()],
             ['voivodeship_id' => 1, 'name' => 'pulawy', 'created_at' => now(), 'updated_at' => now()],
+
+            ['voivodeship_id' => 2, 'name' => 'warszawa', 'created_at' => now(), 'updated_at' => now()],
+            ['voivodeship_id' => 2, 'name' => 'radom', 'created_at' => now(), 'updated_at' => now()],
+            ['voivodeship_id' => 2, 'name' => 'plock', 'created_at' => now(), 'updated_at' => now()],
+            ['voivodeship_id' => 2, 'name' => 'siedlce', 'created_at' => now(), 'updated_at' => now()],
+            ['voivodeship_id' => 2, 'name' => 'ostroleka', 'created_at' => now(), 'updated_at' => now()],
+
+            ['voivodeship_id' => 3, 'name' => 'rzeszow', 'created_at' => now(), 'updated_at' => now()],
+            ['voivodeship_id' => 3, 'name' => 'przemysl', 'created_at' => now(), 'updated_at' => now()],
+            ['voivodeship_id' => 3, 'name' => 'stalowa wola', 'created_at' => now(), 'updated_at' => now()],
+            ['voivodeship_id' => 3, 'name' => 'mielec', 'created_at' => now(), 'updated_at' => now()],
+            ['voivodeship_id' => 3, 'name' => 'tarnobrzeg', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 };

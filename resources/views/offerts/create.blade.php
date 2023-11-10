@@ -4,16 +4,16 @@
         <form action='/offerts' method="post" enctype="multipart/form-data">
             @csrf
             <div>
-                <label for='create-name' >* name</label>
-                <input type='text' name='name' id='create-name' placeholder="Adam" value="{{old('name')}}">
-                @error('name')
+                <label for='create-first_name' >* First Name</label>
+                <input type='text' name='first_name' id='create-first_name' placeholder="Adam" value="{{old('first_name')}}">
+                @error('first_name')
                     <p>{{$message}}</p>
                 @enderror
             </div>
             <div>
-                <label for='create-surname' >* surname</label>
-                <input type='text' name='surname' id='create-surname' placeholder="Mickiewcz" value="{{old('surname')}}">
-                @error('surname')
+                <label for='create-last_name' >* Last Name</label>
+                <input type='text' name='last_name' id='create-last_name' placeholder="Mickiewcz" value="{{old('last_name')}}">
+                @error('last_name')
                     <p>{{$message}}</p>
                 @enderror
             </div>
@@ -62,18 +62,29 @@
                 @enderror
             </div>
                       
-            <div>                    
+            {{-- <div>                    
                 <label for='create-workplace' >* Workplace (comma spearated) </label>
                 <input type='text' id='create-workplace' name='workplace' placeholder="salon, private, client" value="{{old('workplace')}}">
                 @error('workplace')
                     <p>{{$message}}</p>
                 @enderror
-            </div>  
+            </div>   --}}
+            <div>
+                <label for="create-workplace">* Workplaces</label>
+                <select name="workplaces[]" id="create-workplace" multiple>
+                    @foreach ($workplaces as $workplace)
+                        <option value="{{ $workplace->id }}">{{ $workplace->name }}</option>
+                    @endforeach
+                </select>
+                @error('workplaces')
+                    <p>{{ $message }}</p>
+                @enderror
+            </div>
             <div>                    
-                <label for='create-profile-picture' > Profile picture </label>
-                <input type='file' id='create-profile-picture' name='profile-picture' value="{{old('profile-picture')}}">
-                {{-- <img src='{{$offert['profile-picture'] ? asset('storage/'. $offert['profile-picture']) : asset('images/no-image.jpg') }}' alt='pfp' width='150px' height='150px'> --}}
-                @error('profile-picture')
+                <label for='create-profile_picture' > Profile picture </label>
+                <input type='file' id='create-profile_picture' name='profile_picture' value="{{old('profile_picture')}}">
+                {{-- <img src='{{$offert['profile_picture'] ? asset('storage/'. $offert['profile_picture']) : asset('images/no-image.jpg') }}' alt='pfp' width='150px' height='150px'> --}}
+                @error('profile_picture')
                     <p>{{$message}}</p>
                 @enderror
             </div>  

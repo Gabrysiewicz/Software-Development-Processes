@@ -4,13 +4,13 @@
     @unless (count($offerts) == 0)
         @foreach ($offerts as $offert)
         <div class='offert'>
-            <img src='{{$offert['profile-picture'] ? asset('storage/'. $offert['profile-picture']) : asset('images/no-image.jpg') }}' alt='pfp' width='150px' height='150px'>
+            <img src='{{$offert['profile_picture'] ? asset('storage/'. $offert['profile_picture']) : asset('images/no-image.jpg') }}' alt='pfp' width='150px' height='150px'>
             <ul class='offert-listing'>
-                <li class='text-120'><a href='/offerts/{{$offert->id}}' >{{$offert->name}} {{$offert->surname}}</a></li>
+                <li class='text-120'><a href='/offerts/{{$offert->id}}' >{{$offert->first_name}} {{$offert->last_name}}</a></li>
                 {{-- <li><a href='/?profession={{$offert->profession}}'>{{$offert->profession}}</a></li> --}}
                 <li>
                     @foreach ($offert->professions as $profession)
-                        <a href='/offerts/{{$offert->id}}' > {{$profession->name}} </a>
+                        <a href='/offerts/{{$offert->id}}' > {{ $profession->name}} </a>
                         @if (!$loop->last)
                             , <!-- Add a comma if it's not the last profession -->
                         @endif
