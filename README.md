@@ -2,6 +2,13 @@
 
 Projekt tego laboratorium opiera się na projekcie z poprzedniego semestru z przedmiotu: `Programowanie aplikacji w chmurze obliczeniowej`
 
+# Środowisko
+
+PHP 8.1.2-1ubuntu2.14 (cli)
+Docker version 24.0.5
+Ubuntu 22.04.3 LTS
+Composer version 2.6.5
+
 # Instrukcja instalacji
 1. Rozpakuj projekt
 
