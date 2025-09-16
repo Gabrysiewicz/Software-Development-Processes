@@ -1,95 +1,96 @@
-# Procesy Wytwarzania Oprogramowania
+# Software Development Processes
 
-Projekt tego laboratorium opiera się na projekcie z poprzedniego semestru z przedmiotu: `Programowanie aplikacji w chmurze obliczeniowej`
+This laboratory project is based on the project from the previous semester of the course: `Cloud Application Programming`
 
-# Środowisko
+# Env
 
 PHP 8.1.2-1ubuntu2.14 (cli)
 Docker version 24.0.5
 Ubuntu 22.04.3 LTS
 Composer version 2.6.5
 
-# Instrukcja instalacji
-1. Rozpakuj projekt
+# Install guide
+1. Unpack the project
 
-2. Przejdź do katalogu projektu:
+2. Navigate to the project directory:
 ```
 cd Project/project
 ```
 
-3. Zainstaluj zależności Composer:
+3. Install dependencies via Composer:
 ```
 composer install
 ```
 
-4. Skopiuj zawartość pliku `.env.example` do pliku `.env`:
+4. Copy content of `.env.example` to `.env`:
 ```
 cp .env.example .env
 ```
 
-5. Zainstaluj i skonfiguruj narzędzie Sail, które umożliwi uruchomienie kontenerów Dockera (należy wybrać mysql [0]):
+5. Install and configure the Sail tool, which allows running Docker containers (select mysql [0]):
 ```
 php artisan sail:install
 ```
 
-6. Wyczyść zbuforowane dane aplikacji, przed uruchomieniem kontenerów:
+6. Clear the application's cached data before starting the containers:
 ```
 php artisan optimize:clear
 ```
 
-7. Należy uruchomić aplikację:
+7. Run the App
 ```
 ./vendor/bin/sail up -d
 ```
-Na adresie localhost powinna działać aplikacja
-Następne 2 operacje można wykonać ręcznie przeklikując się przez aplikację na localhost,
-albo skorzystać z poleceń w krokach 8 i 9.
+The application should be running at localhost.
+The next two operations can be performed manually by navigating through the application on localhost,
+or by using the commands in steps 8 and 9.
 
-8. Wyczyść już istniejące migracje
+8. Clear any existing migrations
 ```
 ./vendor/bin/sail artisan migrate:fresh
 ```
 
-8.5 Moze okazać się potrzebna zmiana uprawnień
+8.5 It may be necessary to change permissions
 ```
 chmod 777 -R *
 ```
 
-9. Generowanie klucza aplikacji
+9. Generate app key
 ```
 ./vendor/bin/sail artisan key:generate
 ```
 
-10. Podłączenie storage, niezbędne dla zdjęć profilowych
+10. Connecting storage, required for profile pictures
 ```
 ./vendor/bin/sail artisan storage:link
 ```
 
-11. Zamknięcie aplikacji (wewnątrz katalogu z projektem)
+11. Closing the application (inside the project directory)
 ```
 ./vendor/bin/sail down
 ```
 
-# Temat Projektu
+# Project Subject
 
-Projekt ma na celu stworzenie aplikacji internetowej, która pozwoli użytkownikom reklamować swoje usługi fryzjerskie, barberskie, kosmetyczne. Aplikacja zapewni fryzjerom platformę do tworzenia profili i promowania swoich firm wśród potencjalnych klientów. 
+The project aims to create a web application that allows users to advertise their hairdressing, barber, and cosmetic services. The application will provide hairdressers with a platform to create profiles and promote their businesses to potential clients.
 
-Wymagania funkcjonalne
-- Rejestracja i logowanie użytkowników
-- Możliwość tworzenia ofert fryzjerskich
-- Możliwość zarządzania swoimi ofertami
-- Funkcja wyszukiwania umożliwiająca użytkownikom znalezienie fryzjerów na podstawie miasta.
+### Functional Requirements
+- User registration and login
+- Ability to create hairdressing offers
+- Ability to manage their own offers
+- Search function allowing users to find hairdressers based on city
 
-Wymagania niefunkcjonalne
-- Aplikacja powinna być kompatybilna z różnymi przeglądarkami takimi jak Google Chrome, Firefox
-- Aplikacja powinna działać niezależnie od systemu operacyjnego
-- Dane użytkowników powinny być bezpiecznie przechowywane
-- System korzysta z bazy MySQL wewnątrz środowiska Docker.
-- System jest wykonany w technologii Laravel
+### Non-Functional Requirements
+- The application should be compatible with various browsers such as Google Chrome and Firefox
+- The application should work independently of the operating system
+- User data should be stored securely
+- The system uses a MySQL database within a Docker environment
+- The system is built using Laravel technology
 
-# Testy automatyczne
 
-Testy w Laravelu są tworzone za pomocą `sail` lub `php` (`sail` wykonuje dokłanie te same zapytania tyle, że już bezpośrednio w kontenerze):
+# Automatic Tests
+
+Tests in Laravel are created using sail or php (sail executes the exact same commands, but directly inside the container):
 
 Docker
 ```
@@ -101,27 +102,29 @@ Local
 php artisan make:test MyTest
 ```
 
-Laravel domyślnie tworzy testy w `/tests/Feature` a testy jednostkowe w `/tests/Unit`.
-Framework jednak stawia na testy poświęcone `Feature'om`.
-W mojej aplikacji testy sprawdzają:
- - CRUD
-   - AuthTest.php
- - Routing
-   - AuthTest.php
-   - GuestTest.php
- - Database
-   - AuthTest.php
- - Validation
-   - ValidationCreateTest.php
-   - ValidationEditTest.php
- - Authorization
-   - AuthTest.php
-   - GuestTest.php
- - Authentication
-   - AuthTest.php
-   - GuestTest.php
+By default, Laravel creates tests in `/tests/Feature` and unit tests in `/tests/Unit`.  
+However, the framework emphasizes tests focused on `Features`.  
 
-Aby wykonać testy należy wydać polecenie
+In my application, the tests cover:
+- CRUD
+  - `AuthTest.php`
+- Routing
+  - `AuthTest.php`
+  - `GuestTest.php`
+- Database
+  - `AuthTest.php`
+- Validation
+  - `ValidationCreateTest.php`
+  - `ValidationEditTest.php`
+- Authorization
+  - `AuthTest.php`
+  - `GuestTest.php`
+- Authentication
+  - `AuthTest.php`
+  - `GuestTest.php`
+
+
+To run the tests use this command
 ```
 ➜  my-app git:(main) sail artisan test
 ```
