@@ -4,10 +4,10 @@ This laboratory project is based on the project from the previous semester of th
 
 # Env
 
-PHP 8.1.2-1ubuntu2.14 (cli)
-Docker version 24.0.5
-Ubuntu 22.04.3 LTS
-Composer version 2.6.5
+- PHP 8.1.2-1ubuntu2.14 (cli)
+- Docker version 24.0.5
+- Ubuntu 22.04.3 LTS
+- Composer version 2.6.5
 
 # Install guide
 1. Unpack the project
